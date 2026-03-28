@@ -27,11 +27,23 @@ jobs:
           submodules: recursive   # 如有子模块保留，否则可删除
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.147.0'   # 升级到最新稳定版
           extended: true
+
+      - name: Build theme
+        run: |
+          cd themes/hugo-theme-techdoc
+          npm ci
+          npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
