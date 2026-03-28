@@ -1,7 +1,7 @@
-baseURL = "https://rabbit0610sc.github.io/"
+baseURL = "https://aaron-weilian.github.io/java-ecommerce-blog/"
 languageCode = "zh-cn"
 title = "电商Java开发技术博客"
-theme = "hugo-theme-techdoc"
+theme = "ananke"
 
 # 主题配置
 [params]

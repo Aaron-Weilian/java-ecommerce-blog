@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Setup Hugo
@@ -39,11 +39,9 @@ jobs:
           hugo-version: '0.147.0'   # 升级到最新稳定版
           extended: true
 
-      - name: Build theme
+      - name: Setup theme
         run: |
-          cd themes/hugo-theme-techdoc
-          npm ci
-          npm run build
+          git clone --depth 1 https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
