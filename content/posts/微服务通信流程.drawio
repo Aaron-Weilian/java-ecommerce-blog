@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram id="microservice_flow" name="微服务通信流程">
+    <mxGraphModel dx="1636" dy="996" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="800" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        
+        <mxCell id="title" value="电商订单创建 - 微服务通信流程" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="600" y="205" width="400" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user" value="用户" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="80" y="340" width="60" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="api_gateway" value="API网关" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="360" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="order_service" value="订单服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="510" y="360" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="inventory_service" value="库存服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1070" y="185" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="payment_service" value="支付服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="800" y="525" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="notification_service" value="通知服务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1070" y="360" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="redis_cache" value="Redis缓存" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="530" y="515" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="mysql_db" value="MySQL数据库" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="1300" y="175" width="140" height="100" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow1" value="1. 提交订单请求" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#6c8ebf;" parent="1" source="user" target="api_gateway" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow2" value="2. 路由到订单服务" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#6c8ebf;" parent="1" source="api_gateway" target="order_service" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow3" value="3. 预占库存" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6b656;dashed=1;" parent="1" source="order_service" target="inventory_service" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow4" value="4. 发起支付" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#b85450;dashed=1;" parent="1" source="order_service" target="payment_service" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow5" value="5. 更新库存记录" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;dashed=1;" parent="1" source="inventory_service" target="mysql_db" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow6" value="6. 记录支付信息" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666;dashed=1;" parent="1" source="payment_service" target="mysql_db" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow7" value="7. 支付结果通知" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#999999;dashed=1;" parent="1" source="payment_service" target="order_service" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow8" value="8. 发送订单确认" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9673a6;dashed=1;" parent="1" source="order_service" target="notification_service" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow9" value="9. 缓存订单数据" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#b85450;dashed=1;" parent="1" source="order_service" target="redis_cache" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow_return" value="10. 返回订单结果" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#999999;dashed=1;startArrow=block;endArrow=none;" parent="1" source="api_gateway" target="user" edge="1">
+          <mxGeometry relative="1" as="geometry">
+          <Array as="points">
+            <mxPoint x="330" y="728" />
+            <mxPoint x="110" y="728" />
+          </Array>
+</mxGeometry>
+        </mxCell>
+        
+        <mxCell id="legend_title" value="流程说明" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="1500" y="210" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_step1" value="1-2: 请求路由" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1640" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_step2" value="3-4: 业务处理" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="1820" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_step3" value="5-9: 数据存储" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="2000" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_step4" value="10: 响应返回" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#999999;" parent="1" vertex="1">
+          <mxGeometry x="2180" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        
+        <mxCell id="style_solid" value="实线: 同步调用" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="style_dashed" value="虚线: 异步调用" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="2540" y="215" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

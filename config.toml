@@ -1,0 +1,49 @@
+baseURL = "https://rabbit0610sc.github.io/"
+languageCode = "zh-cn"
+title = "电商Java开发技术博客"
+theme = "hugo-theme-techdoc"
+
+# 主题配置
+[params]
+  description = "专注电商领域Java开发技术分享，涵盖高并发、微服务、分布式架构等实战经验"
+  author = "Java开发者"
+  github = "rabbit0610sc"
+  twitter = ""
+  linkedin = ""
+  stackoverflow = ""
+
+# 菜单配置
+[[menu.main]]
+  name = "首页"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "文章"
+  url = "/posts/"
+  weight = 2
+
+[[menu.main]]
+  name = "归档"
+  url = "/archives/"
+  weight = 3
+
+[[menu.main]]
+  name = "关于"
+  url = "/about/"
+  weight = 4
+
+# 代码高亮
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = true
+    lineNumbersInTable = false
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# 分页
+[pagination]
+  pagesPerSection = 10

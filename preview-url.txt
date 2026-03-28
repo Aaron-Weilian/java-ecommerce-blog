@@ -1,0 +1,5 @@
+预期的GitHub Pages预览地址：
+https://rabbit0610sc.github.io/
+
+实际地址将在代码推送到GitHub仓库后自动生成。
+请按照README.md中的说明进行设置和部署。
