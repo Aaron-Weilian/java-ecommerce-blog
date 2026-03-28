@@ -45,7 +45,7 @@ jobs:
         run: |
           hugo \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --baseURL "https://aaron-weilian.github.io/java-ecommerce-blog/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
