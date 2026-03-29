@@ -49,6 +49,7 @@ jobs:
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         run: |
           # 动态生成 baseURL，适用于项目站点（如 username.github.io/repo）
           BASE_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
