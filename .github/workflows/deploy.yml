@@ -2,39 +2,35 @@ name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
-# 设置GITHUB_TOKEN的权限，以允许部署到GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 只允许一个并发部署
+# 仅允许一个并发部署，最新运行会取消之前的
 concurrency:
-  group: "pages-${{ github.ref }}"
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: recursive   # 如有子模块保留，否则可删除
           fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          # ✅ 关键修改：升级 Hugo 版本以解决模板兼容性问题
-          hugo-version: '0.121.0' 
+          hugo-version: '0.145.0'   # 升级到最新稳定版
           extended: true
 
       - name: Setup Pages
@@ -44,9 +40,9 @@ jobs:
         env:
           HUGO_ENVIRONMENT: production
         run: |
-          hugo \
-            --minify \
-            --baseURL "https://aaron-weilian.github.io/java-ecommerce-blog/"
+          # 动态生成 baseURL，适用于项目站点（如 username.github.io/repo）
+          BASE_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          hugo --minify --baseURL "$BASE_URL"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
