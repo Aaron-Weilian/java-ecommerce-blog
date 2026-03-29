@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive   # 如有子模块保留，否则可删除
+          submodules: false
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -41,11 +41,18 @@ jobs:
 
       - name: Setup theme
         run: |
+          # 清理可能的techdoc残留
+          rm -rf themes/hugo-theme-techdoc 2>/dev/null || true
+          # 克隆ananke主题
           git clone --depth 1 https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Clean Hugo modules
+        run: |
+          hugo mod clean --all || true
+      
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
